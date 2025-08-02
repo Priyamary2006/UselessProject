@@ -50,7 +50,7 @@ Screenshot3: https://drive.google.com/file/d/1T6sAfYCyE4hqBpOe9O1YvcebwzijH_3T/v
 ### Project Demo
 # Video
 https://drive.google.com/file/d/1ZqxsAz_wH26kfQ8EXJxhwVrZmaPdNAGP/view?usp=drive_link
-*A lizard keeps moving in random directions and the task is to touch it. When we catch it , a pop up message comes sayng "Pattiche.." and the tail is left behind wagging.*
+*A lizard keeps moving in random directions and the task is to touch it. When we catch it , a pop up message comes saying "Pattiche.." and the tail is left behind wagging.*
 
 
 
