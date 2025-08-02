@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving Lizard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-100 flex flex-col items-center justify-center min-h-screen">
+  <h1 class="text-3xl font-bold text-green-800 mb-4">ധൈര്യം  ഉണ്ടേൽ തോട്ടു  നോക്കടാ..!!</h1>
+  <div id="sketch-holder"></div>
+
+  <!-- Popup Message -->
+  <p id="message" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white text-2xl px-6 py-4 rounded-xl shadow-lg opacity-0 transition-opacity duration-500 pointer-events-none z-50">
+    പറ്റിച്ചേ..!!
+  </p>
+
+  <script>
+    let lizardX, lizardY;
+    let speedX, speedY;
+    let tailX, tailY;
+    let hasTail = true;
+    let isRunning = false;
+    let message;
+    let legAngle = 0;
+
+    function setup() {
+      let canvas = createCanvas(600, 400);
+      canvas.parent('sketch-holder');
+      lizardX = width / 2;
+      lizardY = height / 2;
+      speedX = random(-3, 3);
+      speedY = random(-3, 3);
+      message = select('#message');
+    }
+
+    function drawLizard(x, y, withTail) {
+      push();
+      translate(x, y);
+
+      // Shadow
+      fill(0, 50);
+      noStroke();
+      ellipse(5, 5, 50, 20);
+
+      // Body
+      fill(139, 69, 19); 
+      stroke(0);
+      strokeWeight(1);
+      ellipse(0, 0, 40, 15);
+
+      // Head
+      fill(139, 69, 19);
+      ellipse(20, 0, 15, 10);
+      fill(255);
+      ellipse(23, -2, 3, 3);
+      ellipse(23, 2, 3, 3);
+      fill(0);
+      ellipse(23, -2, 1, 1);
+      ellipse(23, 2, 1, 1);
+
+      // Stripes
+      fill(0, 100, 0);
+      noStroke();
+      rect(-15, -3, 5, 2);
+      rect(-5, -3, 5, 2);
+      rect(5, -3, 5, 2);
+
+      // Legs animation
+      stroke(139, 69, 34);
+      strokeWeight(3);
+      push(); translate(10, 7); rotate(sin(legAngle) * 0.3); line(0, 0, 8, 8); pop();
+      push(); translate(10, -7); rotate(-sin(legAngle) * 0.3); line(0, 0, 8, -8); pop();
+      push(); translate(-10, 7); rotate(-sin(legAngle) * 0.3); line(0, 0, 8, 8); pop();
+      push(); translate(-10, -7); rotate(sin(legAngle) * 0.3); line(0, 0, 8, -8); pop();
+
+      // Tail
+      if (withTail) {
+        fill(139, 69, 19);
+        noStroke();
+        beginShape();
+        vertex(-20, 0);
+        vertex(-40, -6);
+        vertex(-60, 0);
+        vertex(-40, 6);
+        endShape(CLOSE);
+        stroke(0);
+        strokeWeight(1);
+        line(-30, 0, -30, 0);
+        line(-40, 0, -40, 0);
+        line(-50, 0, -50, 0);
+      }
+      pop();
+    }
+
+    function drawTail(x, y) {
+      push();
+      translate(x, y);
+      fill(139, 69, 19);
+      noStroke();
+      beginShape();
+      vertex(0, 0);
+      vertex(-20, -6);
+      vertex(-40, 0);
+      vertex(-20, 6);
+      endShape(CLOSE);
+      stroke(0);
+      strokeWeight(1);
+      line(-10, 0, -10, 0);
+      line(-20, 0, -20, 0);
+      line(-30, 0, -30, 0);
+      pop();
+    }
+
+    function draw() {
+      background(220, 255, 220);
+
+      if (!hasTail && tailX && tailY) {
+        drawTail(tailX, tailY);
+      }
+
+      if (!isRunning) {
+        drawLizard(lizardX, lizardY, hasTail);
+      }
+
+      if (!isRunning) {
+        lizardX += speedX;
+        lizardY += speedY;
+
+        if (lizardX < 30 || lizardX > width - 30) speedX *= -1;
+        if (lizardY < 20 || lizardY > height - 20) speedY *= -1;
+
+        if (random(100) < 2) {
+          speedX = random(-3, 3);
+          speedY = random(-3, 3);
+        }
+
+        legAngle += 0.1;
+      } else {
+        lizardX += speedX * 3;
+        lizardY += speedY * 3;
+      }
+    }
+
+    function mousePressed() {
+      if (!isRunning && dist(mouseX, mouseY, lizardX, lizardY) < 20) {
+        if (hasTail) {
+          tailX = lizardX - 40;
+          tailY = lizardY;
+          hasTail = false;
+        }
+        isRunning = true;
+        speedX = random([-5, 5]);
+        speedY = random([-5, 5]);
+
+        // Show popup message
+        message.removeClass('opacity-0');
+        message.addClass('opacity-100');
+
+        setTimeout(() => {
+          message.removeClass('opacity-100');
+          message.addClass('opacity-0');
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>
