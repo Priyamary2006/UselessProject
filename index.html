@@ -11,7 +11,7 @@
   <h1 class="text-3xl font-bold text-green-800 mb-4">ധൈര്യം  ഉണ്ടേൽ തോട്ടു  നോക്കടാ..!!</h1>
   <div id="sketch-holder"></div>
 
-  <!-- Popup Message -->
+
   <p id="message" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white text-2xl px-6 py-4 rounded-xl shadow-lg opacity-0 transition-opacity duration-500 pointer-events-none z-50">
     പറ്റിച്ചേ..!!
   </p>
@@ -39,18 +39,18 @@
       push();
       translate(x, y);
 
-      // Shadow
+      
       fill(0, 50);
       noStroke();
       ellipse(5, 5, 50, 20);
 
-      // Body
+      
       fill(139, 69, 19); 
       stroke(0);
       strokeWeight(1);
       ellipse(0, 0, 40, 15);
 
-      // Head
+      
       fill(139, 69, 19);
       ellipse(20, 0, 15, 10);
       fill(255);
@@ -60,14 +60,14 @@
       ellipse(23, -2, 1, 1);
       ellipse(23, 2, 1, 1);
 
-      // Stripes
+      
       fill(0, 100, 0);
       noStroke();
       rect(-15, -3, 5, 2);
       rect(-5, -3, 5, 2);
       rect(5, -3, 5, 2);
 
-      // Legs animation
+      
       stroke(139, 69, 34);
       strokeWeight(3);
       push(); translate(10, 7); rotate(sin(legAngle) * 0.3); line(0, 0, 8, 8); pop();
@@ -75,7 +75,7 @@
       push(); translate(-10, 7); rotate(-sin(legAngle) * 0.3); line(0, 0, 8, 8); pop();
       push(); translate(-10, -7); rotate(sin(legAngle) * 0.3); line(0, 0, 8, -8); pop();
 
-      // Tail
+    
       if (withTail) {
         fill(139, 69, 19);
         noStroke();
@@ -154,7 +154,7 @@
         speedX = random([-5, 5]);
         speedY = random([-5, 5]);
 
-        // Show popup message
+        
         message.removeClass('opacity-0');
         message.addClass('opacity-100');
 
@@ -167,3 +167,4 @@
   </script>
 </body>
 </html>
+
